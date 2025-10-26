@@ -63,14 +63,16 @@ class Submission(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def clean(self):
+
+def clean(self):
+    if self.conference and self.conference.start_date:  
         if self.conference.start_date < date.today():
             raise ValidationError("Vous ne pouvez soumettre un article que pour une conférence à venir")
 
-        count_today = Submission.objects.filter(user=self.user,
-                                                submission_date=date.today()).count()
-        if self._state.adding and count_today >= 3:
-            raise ValidationError("Vous ne pouvez soumettre plus de 3 articles par jour")
+    count_today = Submission.objects.filter(user=self.user,
+                                            submission_date=date.today()).count()
+    if self._state.adding and count_today >= 3:
+        raise ValidationError("Vous ne pouvez soumettre plus de 3 articles par jour")
 
     def save(self, *args, **kwargs):
         if not self.submission_id:
