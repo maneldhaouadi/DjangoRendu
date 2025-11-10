@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if object.pk %}
+    <h2>Modifier une soumission</h2>
+{% else %}
+    <h2>Ajouter une soumission</h2>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">
+        {% if object.pk %} Enregistrer {% else %} Envoyer {% endif %}
+    </button>
+</form>
+
+<a href="{% url 'list_submission' %}" class="btn btn-secondary mt-2">Retour</a>
+
+{% endblock %}

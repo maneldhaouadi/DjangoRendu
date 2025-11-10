@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>{{ submission.title }}</h2>
+  <p><strong>Auteur :</strong> {{ submission.user.username }}</p>
+  <p><strong>Conférence :</strong> {{ submission.conference.name }}</p>
+  <p><strong>Résumé :</strong> {{ submission.abstract }}</p>
+  <p><strong>Mots-clés :</strong> {{ submission.keywords }}</p>
+  <p><strong>Statut :</strong> {{ submission.status }}</p>
+  <p><strong>Date de soumission :</strong> {{ submission.submission_date }}</p>
+  <a href="{{ submission.paper.url }}" class="btn btn-success" download>Télécharger le PDF</a>
+  <a href="{% url 'list_submission' %}" class="btn btn-secondary">Retour</a>
+</div>
+{% endblock %}
